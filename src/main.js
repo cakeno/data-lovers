@@ -4,7 +4,7 @@ window.onload = function () {
   showModal('.poke-namenum')
   hoverIcons(btnType)
   hoverIcons(btnWeak)
-
+  document.getElementById("filter-buttons").style.display = "none"
 }
 
 const btnType = document.getElementsByClassName('btn-types');
@@ -13,6 +13,34 @@ const getPokes = POKEMON.pokemon;
 const selectOpt = document.querySelector("select");
 const btnWeak = document.getElementsByClassName('btn-weaks');
 const stats = document.getElementById("stats-btn")
+
+document.getElementById("home-btn").addEventListener("click", reloadBtn)
+document.getElementById("search-show").addEventListener("click", searchAd)
+document.getElementById("go-btn").addEventListener("click", searchPoke)
+document.getElementById("stats-btn").addEventListener("click", getStats)
+
+function reloadBtn() {
+  document.location.reload(true)
+}
+
+function searchAd() {
+  let displayDiv = document.getElementById("filter-buttons").style.display;
+  if (displayDiv == "none") {
+    document.getElementById("filter-buttons").style.display = 'flex';
+  } else {
+    document.getElementById("filter-buttons").style.display = 'none';
+  }
+}
+
+function searchPoke() {
+  let searchName = document.getElementById("search-poke").value
+  getPokes.filter((elem) => {
+    if (searchName === elem.name) {
+      pokemonDivFil.innerHTML = pokeUnit(elem);
+    }
+  }
+  )
+}
 
 selectOpt.addEventListener("change", () =>
   sortPoke(selectOpt.selectedIndex));
@@ -101,7 +129,6 @@ function sortPoke(ka) {
     namePoke.reverse();
   }
   clearScreen('.list-poke');
-
   for (let i of namePoke) {
     for (let j in getPokes) {
       let nameData = getPokes[j].name;
@@ -112,8 +139,6 @@ function sortPoke(ka) {
     }
   }
 }
-
-
 for (let btn of document.querySelectorAll('.icon-h-w')) {
   btn.addEventListener('click', function () {
     clearScreen('.list-poke')
@@ -166,18 +191,14 @@ for (let btn of document.querySelectorAll('.icon-h-w')) {
   )
 }
 
-document.getElementById("stats-btn").addEventListener("click", getStats)
-
 function getStats() {
-
   clearScreen('.list-poke')
   clearScreen('#filter-buttons')
-  clearScreen('#show-poke')
   document.getElementById("filter-buttons").style.display = "none"
+  document.getElementById("show-menubar").style.display = "none"
 
   let chooseStats = document.getElementById("stats-menu")
   chooseStats.innerHTML = `
- 
   <img src="../assets/images/pikachu.png"  alt="picachugif" class="pika-img"/>
         <div class="stats-btn2">
         <button id="type-chart">Tipos</button>
@@ -186,14 +207,13 @@ function getStats() {
         <button id="stats-c">Candy</button>
         </div>
    `
-   document.getElementById("type-chart").addEventListener("click", getTypes)
-   document.getElementById("stats-h").addEventListener("click", getHeight)
-   document.getElementById("stats-w").addEventListener("click", getWeight)
-   document.getElementById("stats-c").addEventListener("click", getCandy) 
-  }
+  document.getElementById("type-chart").addEventListener("click", getTypes)
+  document.getElementById("stats-h").addEventListener("click", getHeight)
+  document.getElementById("stats-w").addEventListener("click", getWeight)
+  document.getElementById("stats-c").addEventListener("click", getCandy)
+}
 
 function getTypes() {
- 
   let typesArray = [];
   let contNormal = 0;
   let contFire = 0;
@@ -219,9 +239,9 @@ function getTypes() {
     if (typeof elem.type[1] === "string") {
       typesArray.push(elem.type[1])
     }
-
   }
   )
+
   typesArray.filter((elem) => {
     if (elem === "Normal") {
       contNormal += 1;
@@ -289,7 +309,7 @@ function getTypes() {
     ]
     );
 
-    var view = new google.visualization.DataView(data);
+    let view = new google.visualization.DataView(data);
     view.setColumns([0, 1,
       {
         calc: "stringify",
@@ -300,23 +320,25 @@ function getTypes() {
       2]
     )
 
-    var options = {
+    let options = {
       title: "Tipos de Pokemons",
       titleTextStyle: { fontSize: 20 },
-
-      width: 900,
+      width: 800,
       height: 400,
       backgroundColor: "white",
       fontName: 'Signika',
-      bar: { groupWidth: "80%" },
+      bar: { groupWidth: "90%" },
       legend: { position: "none" },
       hAxis: {
         fontSize: 9,
         slantedText: "true"
+      },
+      chartArea: {
+        width: 700,
       }
     };
 
-    var chart = new google.visualization.ColumnChart(document.getElementById("stats"));
+    let chart = new google.visualization.ColumnChart(document.getElementById("stats"));
     chart.draw(view, options);
   }
 }
@@ -327,10 +349,10 @@ function getHeight() {
     heigthArray.push(elem.height.replace(" m", ""))
   }
   )
-  let sumHeight = heigthArray.reduce((a, b) => parseFloat(a) + parseFloat(b));
-  let avgHeight = (sumHeight / heigthArray.length).toFixed(2);
-  let maxHeight = Math.max.apply(null, heigthArray);
-  let minHeight = Math.min.apply(null, heigthArray);
+  let sumHeight = heigthArray.reduce((a, b) => parseFloat(a) + parseFloat(b))
+  let avgHeight = (sumHeight / heigthArray.length).toFixed(2)
+  let maxHeight = Math.max.apply(null, heigthArray)
+  let minHeight = Math.min.apply(null, heigthArray)
 
   let pokeDivHeight = document.getElementById("stats")
   pokeDivHeight.innerHTML = `
@@ -351,12 +373,12 @@ function getCandy() {
     }
   }
   )
-  let candySum = candyArray.reduce((a, b) => a + b);
-  let avgCandy = candySum / candyArray.length;
-  let maxCandy = Math.max.apply(null, candyArray);
-  let minCandy = Math.min.apply(null, candyArray);
-
+  let candySum = candyArray.reduce((a, b) => a + b)
+  let avgCandy = candySum / candyArray.length
+  let maxCandy = Math.max.apply(null, candyArray)
+  let minCandy = Math.min.apply(null, candyArray)
   let pokeDivCandy = document.getElementById("stats")
+
   pokeDivCandy.innerHTML = `
   <ul class= "hwc-stats">
     <p class="title-stats">CANDY</p>
