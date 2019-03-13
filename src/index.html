@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>Data Lovers</title>
-  <link rel="stylesheet" href="path/to/balloon.min.css">
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="icons-style.css" />
   <link rel="stylesheet" href="stats-style.css" />
@@ -17,8 +16,7 @@
 <body>
   <header class="black-bar" id="black-bar">
     <form>
-      <button id="home-btn" type="submit" formtarget="_self" class="home-btn">Home</button>
-    </form>
+      <button id="home-btn" type="submit" formtarget="_self" class="home-btn">Home</button></form>
     <a href=#filter-buttons class="logo-image"><img src="../assets/images/pokelogo.png" alt="pokelogo"
         class="logo-image" id="topo" /></a>
     <button id="stats-btn" class="stats-btn">Estatísticas</button>
@@ -98,29 +96,20 @@
         </div>
       </section>
     </section>
-    <section id="show-menubar" class="show-menubar">
-      <div class="input-search">
-        <input type="text" id="search-poke" class="search-poke" placeholder="Nome do Pokémon" value="">
-        <button class="go-btn" id="go-btn"><i class="fas fa-search"></i></button>
+    <section class="show-poke" id="show-poke">
+      <div class="order-menu">
+        <select class="menu-select" id="ordering-poke" name="order-names">
+          <option>Ordenar:</option>
+          <option id="orderalphab">A-Z</option>
+          <option id="reversealphab">Z-A</option>
+        </select>
       </div>
-      <div class="show-filter" id="show-filter">
-        <div class="show-hide">
-          <button id="search-show" class="search-btn">Pesquisa Avançada<i class="fas fa-arrow-down"></i></button>
-        </div>
-        <div class="order-menu">
-          <select class="menu-select" id="ordering-poke" name="order-names">
-            <option>Ordenar:</option>
-            <option id="orderalphab">A-Z</option>
-            <option id="reversealphab">Z-A</option>
-          </select>
-        </div>
-      </div>
+      <div class="list-poke" id="list-poke"></div>
     </section>
-    <div class="list-poke" id="list-poke"></div>
     <section id="sec-modal" class="sec-modal">
       <div class="div-modal">
         <section id="modal-content" class="modal-content">
-          <section id="close-sec" class="close"><i class="far fa-times-circle"></i></section>
+          <section id="close-sec" class="close">x</section>
           <h1 class="title-name"></h1>
           <div class="pic-description">
             <figure id="photo-poke" class="poke-img"></figure>
@@ -140,15 +129,16 @@
               </div>
             </div>
           </div>
-          <section class="mother-evol">
-            <section class="sec-evol"></section>
-          </section>
+            <section class="mother-evol">
+              <section class="sec-evol"></section>
+            </section>
         </section>
       </div>
       </div>
     </section>
-    <section class="stats-section">
+    <section class= "stats-section">
       <div id="stats-menu" class="stats-menu">
+        
       </div>
       <div class="stats-show" id="stats">
         <div id="charts" class="charts">
